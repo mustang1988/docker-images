@@ -14,13 +14,12 @@ RUN apk update \
     && mv /usr/lib/oracle/12.2/client64/instantclient_12_2 /usr/lib/oracle/12.2/client64/lib \
     && ln -s /usr/lib/oracle/12.2/client64/lib/libclntsh.so.12.1 /usr/lib/oracle/12.2/client64/lib/libclntsh.so \
     && pecl channel-update pecl.php.net \
-    && pecl install oci8 \
     && pecl install mongodb \
     && pecl install redis \
     && docker-php-ext-install opcache bcmath exif mcrypt mysqli pdo_mysql shmop soap sockets sysvsem xmlrpc zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
-    && docker-php-ext-enable opcache bcmath exif gd mcrypt mysqli pdo_mysql shmop soap sockets sysvsem xmlrpc zip mongodb redis oci8 \
+    && docker-php-ext-enable opcache bcmath exif gd mcrypt mysqli pdo_mysql shmop soap sockets sysvsem xmlrpc zip mongodb redis \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" >  /etc/timezone
 
