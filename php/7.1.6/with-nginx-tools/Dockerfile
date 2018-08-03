@@ -1,4 +1,4 @@
-FROM php:7.1.6-fpm-alpine
+FROM php:7.1.20-fpm-alpine3.7
 ENV NGINX_VERSION 1.12.0
 # install php exts
 COPY instantclient-basic-linux.x64-12.2.0.1.0.zip ./
