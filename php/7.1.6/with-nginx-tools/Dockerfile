@@ -137,15 +137,21 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && rm -rf /etc/supervisord.conf \
     && apk add --no-cache supervisor dcron
 #fix iconv
-RUN apk add --no-cache gnu-libiconv \
+RUN apk add --no-cache --allow-untrusted gnu-libiconv ttf-freefont fontconfig dbus xvfb qt5-qtbase-dev wkhtmltopdf \
     && set -x \
     && addgroup -g 555 -S www \
     && adduser -u 555 -D -S -G www www \
     && chmod -R 777 /run \
     && chmod -R 777 /var \
-    && chmod -R 777 /usr/sbin \
-    && php -m
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+    && chmod -R 777 /usr/sbin
+
+RUN mv /usr/bin/wkhtmltopdf /usr/bin/wkhtmltopdf-origin && \
+    echo $'#!/usr/bin/env sh\n\
+Xvfb :0 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset & \n\
+DISPLAY=:0.0 wkhtmltopdf-origin $@ \n\
+killall Xvfb\
+' > /usr/bin/wkhtmltopdf && \
+    chmod +x /usr/bin/wkhtmltopdf
 
 COPY supervisord.conf /etc/supervisord.conf
 
