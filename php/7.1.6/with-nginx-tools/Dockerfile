@@ -3,7 +3,7 @@ ENV NGINX_VERSION 1.12.0
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk update \
     && apk add --no-cache --virtual .phpdeps \
-        $PHPIZE_DEPS openssl-dev pcre-dev libpng-dev freetype-dev libjpeg-turbo-dev libpng-dev libxml2-dev tzdata \
+        $PHPIZE_DEPS libressl-dev pcre-dev libpng-dev freetype-dev libjpeg-turbo-dev libpng-dev libxml2-dev tzdata \
     && apk add --no-cache libaio libmcrypt-dev libaio-dev \
     && mkdir -p /usr/lib/oracle/12.2/client64/ \
     && pecl channel-update pecl.php.net \
