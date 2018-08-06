@@ -1,6 +1,6 @@
 FROM php:7.1.20-fpm-alpine3.7
 ENV NGINX_VERSION 1.12.0
-RUM echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk update \
     && apk add --no-cache --virtual .phpdeps \
         $PHPIZE_DEPS openssl-dev pcre-dev libpng-dev freetype-dev libjpeg-turbo-dev libpng-dev libxml2-dev tzdata \
