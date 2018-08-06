@@ -137,7 +137,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && rm -rf /etc/supervisord.conf \
     && apk add --no-cache supervisor dcron
 #fix iconv
-RUN apk add --no-cache gnu-libiconv wkhtmltopdf \
+RUN apk add --no-cache gnu-libiconv wkhtmltopdf xvfb \
     && set -x \
     && addgroup -g 555 -S www \
     && adduser -u 555 -D -S -G www www \
