@@ -1,18 +1,11 @@
 FROM php:7.1.20-fpm-alpine3.7
 ENV NGINX_VERSION 1.12.0
-# install php exts
-COPY instantclient-basic-linux.x64-12.2.0.1.0.zip ./
-COPY instantclient-sdk-linux.x64-12.2.0.1.0.zip ./
-ENV LD_LIBRARY_PATH /usr/lib/oracle/12.2/client64/lib/:$LD_LIBRARY_PATH
+RUM echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk update \
     && apk add --no-cache --virtual .phpdeps \
         $PHPIZE_DEPS openssl-dev pcre-dev libpng-dev freetype-dev libjpeg-turbo-dev libpng-dev libxml2-dev tzdata \
     && apk add --no-cache libaio libmcrypt-dev libaio-dev \
     && mkdir -p /usr/lib/oracle/12.2/client64/ \
-    && unzip instantclient-basic-linux.x64-12.2.0.1.0.zip -d /usr/lib/oracle/12.2/client64/ \
-    && unzip instantclient-sdk-linux.x64-12.2.0.1.0.zip -d /usr/lib/oracle/12.2/client64/ \
-    && mv /usr/lib/oracle/12.2/client64/instantclient_12_2 /usr/lib/oracle/12.2/client64/lib \
-    && ln -s /usr/lib/oracle/12.2/client64/lib/libclntsh.so.12.1 /usr/lib/oracle/12.2/client64/lib/libclntsh.so \
     && pecl channel-update pecl.php.net \
     && pecl install mongodb \
     && pecl install redis \
@@ -144,7 +137,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && rm -rf /etc/supervisord.conf \
     && apk add --no-cache supervisor dcron
 #fix iconv
-RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv \
+RUN apk add --no-cache gnu-libiconv wkhtmltopdf \
     && set -x \
     && addgroup -g 555 -S www \
     && adduser -u 555 -D -S -G www www \
