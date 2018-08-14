@@ -1,4 +1,4 @@
-FROM 10.7.12.3:5000/dev/python:3.6-alpine3.7
+FROM python:3.6-alpine3.7
 RUN pip install torndb
 RUN pip install kazoo
 RUN pip install tornado
